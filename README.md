@@ -15,12 +15,11 @@ Go to `PORTS` tab in codespace (open new terminal `ctrl + shift + '`)
 * Visibility either public or private
 
 
-
 # Codespace Portforwarding for `Streamlit`
 
 * Loading page is stuck on load?
 
-Try adding 
+Try adding
 ```
 [server]
 enableCORS=false
@@ -42,3 +41,7 @@ Press dot `.` on any page on `github.com` to be taken to `github.dev/*`
 
 > **Dev spaces** are good for viewing and quick edits  
 > **Codespaces** are virtual VMs linked to your repo
+
+# 💾 Dataframe with editable cells
+Creating a dataframe app by [CharlyWargnier](https://github.com/streamlit/example-app-editable-dataframe) and [Pablo Fonseca](https://github.com/PablocFonseca).  
+1. Add `streamlit-aggrid==0.2.2-2` to requirements file
