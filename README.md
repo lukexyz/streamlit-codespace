@@ -1,7 +1,7 @@
 # 🚀 Config Codespace
 
-+ Create codespace on main (free tier for personal use)
-+ `4-core • 8GB RAM • 32GB` 
++ Create codespace on main 
++ `4-core • 8GB RAM • 32GB` (free for personal use)
 
 #### 1. Install and run
 ```
