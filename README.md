@@ -58,3 +58,6 @@ Add commands to `.devcontainer/devcontainer.json` like
 ```
 "postCreateCommand": "pip3 install --user -r requirements.txt"
 ```
+### To Rebuild Codespace
+Access the Visual Studio Code Command Palette (`Ctrl + Shift + P`) then start typing 
+> **rebuild**
