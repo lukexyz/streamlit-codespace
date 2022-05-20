@@ -3,7 +3,6 @@ import pandas as pd
 from st_aggrid import AgGrid, GridUpdateMode, JsCode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 
-
 # ------------------------------------------------------
 st.header('Editable Dataframes')
 
@@ -24,15 +23,12 @@ grid_table = AgGrid(
     gridOptions=gridoptions,
     update_mode=GridUpdateMode.SELECTION_CHANGED,
     height=500,
-    theme="material", # fresh
+    theme="material", # or "fresh"
     allow_unsafe_jscode=True,
 )
 
 sel_row = grid_table["selected_rows"]
 df_sel_row = pd.DataFrame(sel_row)
-
-
-
 
 # ------------------------------------------------------
 st.header('Counter Example')
