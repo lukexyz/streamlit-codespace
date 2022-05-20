@@ -33,6 +33,7 @@ touch .streamlit/config.toml
 ```
 Then add the code snippet above.
 
+
 # 👀 Github `Dev` Spaces
 Press dot `.` on any page on `github.com` to be taken to `github.dev/*`
 * Browse and `edit` files
@@ -45,3 +46,15 @@ Press dot `.` on any page on `github.com` to be taken to `github.dev/*`
 # 💾 Dataframe with editable cells
 Creating a dataframe app by [CharlyWargnier](https://github.com/streamlit/example-app-editable-dataframe) and [Pablo Fonseca](https://github.com/PablocFonseca).  
 1. Add `streamlit-aggrid==0.2.2-2` to requirements file
+
+# Devcontainers
+[documentation link](https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/introduction-to-dev-containers#using-a-predefined-dev-container-configuration)  
+Access the Visual Studio Code Command Palette (`Shift + Command + P` / `Ctrl + Shift + P`), then start typing "dev container". Select  
+> **Codespaces: Add Development Container Configuration Files...**
+
+* Choose `conda` prebuilt devspace
+
+Add commands to `.devcontainer/devcontainer.json` like
+```
+"postCreateCommand": "pip3 install --user -r requirements.txt"
+```
