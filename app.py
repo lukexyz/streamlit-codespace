@@ -7,16 +7,16 @@ from st_aggrid.grid_options_builder import GridOptionsBuilder
 st.header('Editable Dataframes')
 
 @st.cache
-def data_upload():
-    df = pd.read_csv("https://raw.githubusercontent.com/streamlit/example-app-editable-dataframe/main/covid-variants.csv")
-    return df[['location', 'date', 'variant', 'num_sequences_total']]
-df = data_upload()
+def data_download():
+    df = pd.read_csv("https://gist.githubusercontent.com/netj/8836201/raw/6f9306ad21398ea43cba4f7d537619d0e07d5ae3/iris.csv")
+    return df
+df = data_download()
 
 gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_pagination(enabled=True)
 gd.configure_default_column(editable=True, groupable=True)
-
 gd.configure_selection(selection_mode="multiple", use_checkbox=True)
+
 gridoptions = gd.build()
 grid_table = AgGrid(
     df,
