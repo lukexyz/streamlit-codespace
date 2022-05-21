@@ -4,33 +4,33 @@ from st_aggrid import AgGrid, GridUpdateMode, JsCode
 from st_aggrid.grid_options_builder import GridOptionsBuilder
 
 # ------------------------------------------------------
-st.header('Editable Dataframes')
+st.header('📝 Edit Dataframe')
 
 @st.cache
 def data_download():
-    df = pd.DataFrame( {'A': [1, 2], 'B': [3, 4], 'C': [5,6]})
+    df = pd.DataFrame( {'Location': ['London', 'Auckland'], 
+                        'Weather': [21, 18], 
+                        'Mood': ['☀️', '🌝']})
     return df
+
 df = data_download()
 gd = GridOptionsBuilder.from_dataframe(df)
-# gd.configure_pagination(enabled=True)
-gd.configure_default_column(editable=True, groupable=True)
-# gd.configure_selection(selection_mode="multiple", use_checkbox=True)
+gd.configure_default_column(editable=True)
 
 gridoptions = gd.build()
 grid_table = AgGrid(
     df,
     gridOptions=gridoptions,
     update_mode=GridUpdateMode.SELECTION_CHANGED,
-    #height=500,
+    height=180,
     theme="material", # or "fresh"
     allow_unsafe_jscode=True,
 )
 
-sel_row = grid_table["selected_rows"]
-df_sel_row = pd.DataFrame(sel_row)
+st.metric("Weather", value=f"{df.Weather.max()}°C", delta="1.2 °C")
 
 # ------------------------------------------------------
-st.header('Counter Example')
+st.header('🧮 Session Variables')
 
 if 'count' not in st.session_state:
     st.session_state.count = 0
@@ -43,7 +43,7 @@ if decrement:
 st.write(st.session_state.count)
 
 # ------------------------------------------------------
-st.header('Mirror using Session State')
+st.header('♾️ Mirror Input')
 # https://blog.streamlit.io/session-state-for-streamlit/
 
 def update_first():
