@@ -8,21 +8,20 @@ st.header('Editable Dataframes')
 
 @st.cache
 def data_download():
-    df = pd.read_csv("https://gist.githubusercontent.com/netj/8836201/raw/6f9306ad21398ea43cba4f7d537619d0e07d5ae3/iris.csv")
+    df = pd.DataFrame( {'A': [1, 2], 'B': [3, 4], 'C': [5,6]})
     return df
 df = data_download()
-
 gd = GridOptionsBuilder.from_dataframe(df)
-gd.configure_pagination(enabled=True)
+# gd.configure_pagination(enabled=True)
 gd.configure_default_column(editable=True, groupable=True)
-gd.configure_selection(selection_mode="multiple", use_checkbox=True)
+# gd.configure_selection(selection_mode="multiple", use_checkbox=True)
 
 gridoptions = gd.build()
 grid_table = AgGrid(
     df,
     gridOptions=gridoptions,
     update_mode=GridUpdateMode.SELECTION_CHANGED,
-    height=500,
+    #height=500,
     theme="material", # or "fresh"
     allow_unsafe_jscode=True,
 )
