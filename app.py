@@ -8,14 +8,16 @@ st.set_page_config(page_title="Streamlit Codespace", page_icon="💎", layout="c
 # ------------------------------------------------------
 st.header('💾 Edit Dataframe')
 
-@st.cache
-def data_download():
-    df = pd.DataFrame( {'Location': ['London', 'Auckland'], 
-                        'Weather': [21, 18], 
-                        'Mood': ['☀️', '🌝']})
+def data_download(init=False):
+    if init:
+        df = pd.DataFrame( {'Location': ['London', 'Auckland'], 
+                            'Weather': [21, 18], 
+                            'Mood': ['☀️', '🌝']})
+    else:
+        df = pd.read_csv('db.csv', index_col=0)
     return df
 
-df = data_download()
+df = data_download(init=False)
 gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_default_column(editable=True)
 gd.configure_selection(selection_mode="multiple", use_checkbox=True)
@@ -33,17 +35,18 @@ grid_table = AgGrid(
 st.metric("Weather", value=f"{df.Weather.max()}°C", delta="1.2 °C")
 
 
+dx = pd.DataFrame(grid_table["data"])
+st.write(dx)
+st.write(pd.DataFrame(grid_table["selected_rows"]))
+
 @st.experimental_memo
 def save_data(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     df.to_csv("db.csv")
     
 if st.button('Apply'):
-    save_data(df)
-    st.text('Hi')
-
-st.write(pd.DataFrame(grid_table["data"]))
-st.write(pd.DataFrame(grid_table["selected_rows"]))
+    save_data(dx)
+    st.text('Saved `db.csv`')
 
 # ====================== PART 2 ======================
 
@@ -79,9 +82,9 @@ st.header('🌐 Query Params')
 st.markdown('''Append to URL
 `?user=luke&id=123`''')
 
-st.write(st.experimental_get_query_params())
+params = st.experimental_get_query_params()
 
-username = st.experimental_get_query_params()['user'][0]
-userid = st.experimental_get_query_params()['id'][0]
-
-st.write(f'Hello **{username} {userid}**, how are you?')
+if params:
+    username = st.experimental_get_query_params()['user'][0]
+    userid = st.experimental_get_query_params()['id'][0]
+    st.write(f'Hello **{username} {userid}**, how are you?')
