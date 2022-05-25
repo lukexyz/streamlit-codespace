@@ -46,9 +46,22 @@ def save_data(df):
     
 if st.button('Apply'):
     save_data(dx)
-    st.text('Saved `db.csv`')
+    st.write('Saved `db.csv`')
 
 # ====================== PART 2 ======================
+
+st.header('🌐 Query Params')
+st.markdown('''Append to URL
+`?user=luke&id=123`''')
+
+params = st.experimental_get_query_params()
+
+if params:
+    username = st.experimental_get_query_params()['user'][0]
+    userid = st.experimental_get_query_params()['id'][0]
+    st.write(f'Hello **{username} {userid}**, how are you?')
+
+# ====================== PART 3 ======================
 
 st.header('🧮 Session Variables')
 
@@ -62,7 +75,7 @@ if decrement:
     st.session_state.count -= 1
 st.write(st.session_state.count)
 
-# ====================== PART 3 ======================
+# ====================== PART 4 ======================
 
 st.header('♾️ Mirror Input')
 # https://blog.streamlit.io/session-state-for-streamlit/
@@ -75,16 +88,3 @@ def update_second():
 
 st.text_input(label='Textbox 1', key='first', on_change=update_first)
 st.text_input(label='Textbox 2', key='second', on_change=update_second)
-
-# ====================== PART 4 ======================
-
-st.header('🌐 Query Params')
-st.markdown('''Append to URL
-`?user=luke&id=123`''')
-
-params = st.experimental_get_query_params()
-
-if params:
-    username = st.experimental_get_query_params()['user'][0]
-    userid = st.experimental_get_query_params()['id'][0]
-    st.write(f'Hello **{username} {userid}**, how are you?')
