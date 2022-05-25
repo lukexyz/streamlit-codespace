@@ -8,6 +8,7 @@ st.set_page_config(page_title="Streamlit Codespace", page_icon="💎", layout="c
 # ------------------------------------------------------
 st.header('💾 Edit Dataframe')
 
+
 def data_download(init=False):
     if init:
         df = pd.DataFrame( {'Location': ['London', 'Auckland'], 
@@ -20,31 +21,26 @@ def data_download(init=False):
 df = data_download(init=False)
 gd = GridOptionsBuilder.from_dataframe(df)
 gd.configure_default_column(editable=True)
-gd.configure_selection(selection_mode="multiple", use_checkbox=True)
 
 gridoptions = gd.build()
 grid_table = AgGrid(
     df,
     gridOptions=gridoptions,
-    update_mode=GridUpdateMode.SELECTION_CHANGED,
+    update_mode='value_changed', # or can use: GridUpdateMode.SELECTION_CHANGED,
     height=180,
     theme="material", # or "fresh"
     allow_unsafe_jscode=True,
 )
 
-st.metric("Weather", value=f"{df.Weather.max()}°C", delta="1.2 °C")
-
-
 dx = pd.DataFrame(grid_table["data"])
-st.write(dx)
-st.write(pd.DataFrame(grid_table["selected_rows"]))
+st.metric("Highest Temp", value=f"{dx.Weather.max()}°C", delta=f"{dx.Weather.max() - dx.Weather.min():0.1f} °C")
 
 @st.experimental_memo
 def save_data(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
     df.to_csv("db.csv")
     
-if st.button('Apply'):
+if st.button('Apply Changes'):
     save_data(dx)
     st.write('Saved `db.csv`')
 
