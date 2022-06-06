@@ -35,6 +35,8 @@ grid_table = AgGrid(
 dx = pd.DataFrame(grid_table["data"])
 st.metric("Highest Temp", value=f"{dx.Weather.max()}°C", delta=f"{dx.Weather.max() - dx.Weather.min():0.1f} °C")
 
+st.dataframe(dx)
+
 @st.experimental_memo
 def save_data(df):
     # IMPORTANT: Cache the conversion to prevent computation on every rerun
